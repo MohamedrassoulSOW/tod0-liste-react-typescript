@@ -11,9 +11,12 @@ type Todo = {
 type Props = {
   todo: Todo;
   onDelete: (id: number) => void;
+  isSelected?: boolean;
+  onToggleSelect?: (id: number) => void;
+  onFinishSelected?: () => void;
 };
 
-const TodoItem = ({ todo, onDelete }: Props) => {
+const TodoItem = ({ todo, onDelete, isSelected, onToggleSelect }: Props) => {
   // Configuration du badge selon la priorité
   const priorityConfig = {
     Urgente: {
@@ -40,6 +43,8 @@ const TodoItem = ({ todo, onDelete }: Props) => {
           <input
             type="checkbox"
             className="checkbox checkbox-primary checkbox-sm"
+            checked={isSelected}
+            onChange={() => onToggleSelect && onToggleSelect(todo.id)}
           />
 
           <span className="font-semibold truncate">{todo.text}</span>
